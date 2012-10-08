@@ -1,0 +1,5 @@
+<%= form_for(current_user.circles.build(movie_id: @movie.id),
+             remote: true) do |f| %>
+    <div><%= f.hidden_field :movie_id %></div>
+    <%= f.submit "Join", class: "btn btn-large btn-primary" %>
+<% end %>

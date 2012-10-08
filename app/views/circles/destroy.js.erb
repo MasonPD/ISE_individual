@@ -1,0 +1,2 @@
+$("#join_form").html("<%= escape_javascript(render('movies/join')) %>")
+$("#joiners").html('<%= @movie.users.count %>')

@@ -1,0 +1,21 @@
+<% provide(:title, @title) %>
+<div class="row">
+  <aside class="span4">
+    <section>
+      <h1><%= @movie.name %></h1>
+      <span><%= link_to "Youtube Link", @movie.url %></span>
+    </section>
+    <section>
+      <%= render 'shared/movie_stats' %>
+    </section>
+  </aside>
+  <div class="span8">
+    <h3><%= @title %></h3>
+    <% if @movie.users.any? %>
+        <ul class="users">
+          <%= render @users %>
+        </ul>
+        <%= will_paginate @users %>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<% @movie ||= current_movie %>
+<div class="stats">
+  <a href="<%= joiners_movie_path(@movie) %>">
+    <strong id="joiners" class="stat">
+      <%= @movie.users.count %>
+    </strong>
+    joiners
+  </a>
+</div>

@@ -1,7 +1,17 @@
 ISEIndividual::Application.routes.draw do
-  resources :users
+  resources :users do
+    member do
+      get :joining
+    end
+  end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
+  resources :circles, only: [:create, :destroy]
+  resources :movies do
+    member do
+      get :joiners
+    end
+  end
 
   root to:'static_pages#home'
   #get "static_pages/home"
@@ -12,6 +22,8 @@ ISEIndividual::Application.routes.draw do
   match '/signout', to:'sessions#destroy', via: :delete
   match '/help', to:'static_pages#help'
   match'/about', to:'static_pages#about'
+
+  match'/newmovie',to: 'movies#new'
 
 
   # The priority is based upon order of creation:

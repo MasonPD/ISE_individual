@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   attr_accessible :email, :name, :password, :password_confirmation
   has_secure_password
   has_many :microposts, dependent: :destroy
+  has_many :circles, foreign_key: "user_id", dependent: :destroy
+  has_many :movies, through: :circles, source: :movie
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -28,6 +30,18 @@ class User < ActiveRecord::Base
   def feed
     # This is preliminary. See "Following users" for the full implementation.
     Micropost.where("user_id = ?", id)
+  end
+
+  def joining?(movie)
+    circles.find_by_movie_id(movie.id)
+  end
+
+  def join!(movie)
+    circles.create!(movie_id: movie.id)
+  end
+
+  def unjoin!(movie)
+    circles.find_by_movie_id(movie.id).destroy
   end
 
   private

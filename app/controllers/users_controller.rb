@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy, :joining]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
   def new
@@ -40,6 +40,13 @@ class UsersController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def joining
+    @title = "Joining"
+    @user = User.find(params[:id])
+    @movies = @user.movies.paginate(page: params[:page])
+    render 'show_joining'
   end
 
   def index
