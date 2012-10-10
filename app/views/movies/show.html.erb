@@ -17,6 +17,12 @@
     </section>
   </aside>
   <div class="span8">
-
+    <% if @movie.microposts.any? %>
+        <h3>Microposts (<%= @movie.microposts.count %>)</h3>
+        <ol class="microposts">
+          <%= render partial:  'micropost', collection: @microposts %>
+        </ol>
+        <%= will_paginate @microposts%>
+    <% end %>
   </div>
 </div>

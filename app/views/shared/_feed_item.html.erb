@@ -1,6 +1,7 @@
 <li id="<%= feed_item.id %>">
   <span class="user">
       <%= link_to feed_item.user.name, feed_item.user %>
+      in <%= link_to feed_item.movie.name, feed_item.movie %>
     </span>
   <span class="content"><%= feed_item.content %></span>
     <span class="timestamp">

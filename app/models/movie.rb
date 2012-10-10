@@ -1,5 +1,6 @@
 class Movie < ActiveRecord::Base
   attr_accessible :name, :url
+  has_many :microposts, dependent: :destroy
   has_many :circles, foreign_key: "movie_id", dependent: :destroy
   has_many :users, through: :circles, source: :user
 

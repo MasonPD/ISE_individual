@@ -21,6 +21,7 @@ class MoviesController < ApplicationController
 
   def show
     @movie = Movie.find(params[:id])
+    @microposts = @movie.microposts.paginate(page: params[:page])
   end
 
   def joiners
