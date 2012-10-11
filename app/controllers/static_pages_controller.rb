@@ -2,8 +2,10 @@ class StaticPagesController < ApplicationController
   def home
     if signed_in?
       @micropost  = current_user.microposts.build
-      @movie = current_user.movies.build
-      @feed_items = current_user.feed(@movie).paginate(page: params[:page])
+      #@movie = current_user.movies.build
+      #@movies = current_user.movies.all
+      @feed_items = current_user.feed.paginate(page: params[:page])
+      #@feed_items = current_user.feed(@movies).all
     end
   end
 

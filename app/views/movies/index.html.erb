@@ -1,8 +1,34 @@
 <% provide(:title, 'All movies')  %>
-<h1>All movies</h1>
+<div class="container">
+  <h1>All movies</h1>
+  <aside class="span 4">
+    <div id="myCarousel" class="carousel slide">
+      <!-- Carousel items -->
+      <div class="carousel-inner">
+        <div class="active item">
+          <%= link_to image_tag("batman.jpg", alt: "") %>
+        </div>
+        <div class="item">
+          <%= link_to image_tag("titanic.jpeg", alt: "") %>
+        </div>
+        <div class="item">
+          <%= link_to image_tag("godfather.jpg", alt: "") %>
+        </div>
+      </div>
+      <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>    <!-- Carousel nav -->
+  </aside>
+  <div class="span 6">
+    <ul class="movies">
+      <%= render @movies %>
+    </ul>
+  </div>
+</div>
 
-<ul class="movies">
-  <%= render @movies %>
 
-</ul>
+
+
+
+
 
