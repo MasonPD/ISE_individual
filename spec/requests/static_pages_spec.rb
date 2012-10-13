@@ -2,27 +2,45 @@ require 'spec_helper'
 
 describe "Static pages" do
 
-  describe "Home page" do
+  subject { page }
 
-    it "should have the content 'Sky Walker'" do
-      visit '/static_pages/home'
-      page.should have_content('Sky Walker')
+  describe "Home page" do
+    before { visit root_path }
+
+    it { should have_selector('h1', text: 'Sky Walker') }
+    it { should have_selector('title', text: full_title('')) }
+    it { should_not have_selector 'title', text: '| Home' }
+
+    describe "for signed-in users" do
+      let(:user) { FactoryGirl.create(:user) }
+      let(:movie) {FactoryGirl.create(:movie)}
+      before do
+        FactoryGirl.create(:micropost, user: user, movie: movie, content: "Lorem")
+        FactoryGirl.create(:micropost, user: user, movie: movie, content: "Ipsum")
+        sign_in user
+        visit root_path
+      end
+
+      it "should render the user's feed" do
+        user.feed.each do |item|
+          page.should have_selector("li##{item.id}", text: item.content)
+        end
+      end
     end
   end
 
   describe "Help page" do
+    before { visit help_path }
 
-    it "should have the content 'Help'" do
-      visit '/static_pages/help'
-      page.should have_content('Help')
-    end
+    it { should have_selector('h1',    text: 'Help') }
+    it { should have_selector('title', text: full_title('Help')) }
   end
 
   describe "About page" do
+    before { visit about_path }
 
-    it "should have the content 'About Me'" do
-      visit '/static_pages/about'
-      page.should have_content('About Me')
-    end
+    it { should have_selector('h1',    text: 'About') }
+    it { should have_selector('title', text: full_title('About Me')) }
   end
+
 end
